@@ -16,7 +16,7 @@ console.log(getTeamDetails());
 
 export const Homepage = () => {
 
-    const [state, setState] = useState(TeamDetailStorage);
+    // const [state, setState] = useState(TeamDetailStorage);
 
     const Convey = (conname) => {
         localStorage.setItem("pass",JSON.stringify(conname));
@@ -24,12 +24,12 @@ export const Homepage = () => {
 
     useEffect(() => {
             if(getTeamDetails()!==[] || getTeamDetails()!=={} || getTeamDetails()!==null ){
-            setState([...state,getTeamDetails()]);
+                TeamDetailStorage.push(getTeamDetails())
         }else{
             // setstate(TeamDetailStorage);
         }
 
-    }, [])
+    }, [getTeamDetails])
 
     // const getTeamDetails =()=>{
     //         let localList = localStorage.getItem('teamdetails');
@@ -42,13 +42,13 @@ export const Homepage = () => {
     //         }
     //     }
     
-    console.log(state);
+    console.log(TeamDetailStorage);
 
     return (
         <>
         <h3 className="m-3" onClick={()=>{getTeamDetails()}}> Homepage </h3>
         <div className="container-fluid row ">
-            {state.map((item, index) => {
+            {TeamDetailStorage.map((item, index) => {
                 return (
                     <Link className="text-decoration-none text-reset" to="/TeamDetails" onClick={()=>Convey(item.Team_Name)} key={index}>
                     <div className="container-fluid col-sm column text-center p-2 rounded card" >
